@@ -18,5 +18,7 @@
         public const string NEGATIVE_RESULT_FOR_BOTH_ENVELOPES = "No one of envelopes can not contains another one";
 
         public const string WRONG_PARAMETERS = "Wrong parameters!";
+        public const string WRONG_INPUT = "Wrong input!";
+
     }
 }

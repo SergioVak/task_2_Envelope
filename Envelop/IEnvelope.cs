@@ -1,10 +1,10 @@
 ﻿namespace Envelope
 {
-    public interface IContainable
+    public interface IEnvelope
     {
         double Height { get;}
         double Width { get; }
 
-        bool CanContains(IContainable container);
+        bool CanContains(IEnvelope container);
     }
 }

@@ -1,6 +1,6 @@
 ﻿namespace Envelope
 {
-    public class Envelope : IContainable
+    public class Envelope : IEnvelope
     {
         public double Height { get; }
         public double Width { get; }
@@ -19,7 +19,7 @@
             }    
         }
 
-        public bool CanContains(IContainable secondEnvelope)
+        public bool CanContains(IEnvelope secondEnvelope)
         {
             bool result;
 

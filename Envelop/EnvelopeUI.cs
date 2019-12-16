@@ -5,7 +5,7 @@ namespace Envelope
 {
     public class EnvelopeUI
     {
-        public string GetUserParametersForEnvelope(string informationForUser)
+        public string GetInputForEnvelope(string informationForUser)
         {
             Console.WriteLine(informationForUser);
 
@@ -14,30 +14,43 @@ namespace Envelope
 
         public bool RunAgain()
         {
-            string input = string.Empty;
-            bool result;
+            bool reAsk = false;
+            bool result = false;
 
-            Console.WriteLine(TextMessages.RUN_AGAIN);
-            input = Console.ReadLine();
-
-            switch (input.ToLower())
+            do
             {
-                case TextMessages.YES:
-                case TextMessages.Y:
-                    result = true;
-                    break;
+                string input = string.Empty;
 
-                case TextMessages.NO:
-                case TextMessages.N:
-                    result = false;
-                    break;
+                Console.WriteLine(TextMessages.RUN_AGAIN);
+                input = Console.ReadLine();
 
-                default:
-                    Log.Logger.Information($"UI default. RunAgain {input}");
-                    Console.WriteLine(TextMessages.RUN_AGAIN);
+                switch (input.ToLower())
+                {
+                    case TextMessages.YES:
+                    case TextMessages.Y:
+                        result = true;
+                        reAsk = false;
 
-                    return RunAgain();
+                        break;
+
+                    case TextMessages.NO:
+                    case TextMessages.N:
+                        result = false;
+                        reAsk = false;
+
+                        break;
+
+                    default:
+                        Log.Logger.Information($"UI default. RunAgain {input}");
+                        Console.WriteLine(TextMessages.WRONG_INPUT);
+                        Console.WriteLine();
+
+                        reAsk = true;
+
+                        break;
+                }
             }
+            while (reAsk);
 
             return result;
         }
