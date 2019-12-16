@@ -7,6 +7,10 @@ namespace Envelope
     {
         private EnvelopeUI _userInterface;
 
+        private IContainable _firstContainer;
+        private IContainable _secondContainer;
+
+
         public EnvelopeApp()
         {
             _userInterface = new EnvelopeUI();
@@ -47,18 +51,18 @@ namespace Envelope
             double height = Convert.ToDouble(splitForFirstEnvepole[0]);
             double width = Convert.ToDouble(splitForFirstEnvepole[1]);
 
-            Envelope firstEnvelope = new Envelope(height, width);
+            _firstContainer = new Envelope(height, width);
 
             height = Convert.ToDouble(splitForSecondEnvepole[0]);
             width = Convert.ToDouble(splitForSecondEnvepole[1]);
 
-            Envelope secondEnvelope = new Envelope(height, width);
+            _secondContainer = new Envelope(height, width);
 
-            if (firstEnvelope.CanContains(secondEnvelope))
+            if (_firstContainer.CanContains(_secondContainer))
             {
                 result = TextMessages.POSITIVE_RESULT_FOR_FIRST_ENVELOPE;
             }
-            else if (secondEnvelope.CanContains(firstEnvelope))
+            else if (_secondContainer.CanContains(_firstContainer))
             {
                 result = TextMessages.POSITIVE_RESULT_FOR_SECOND_ENVELOPE;
             }
