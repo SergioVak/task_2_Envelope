@@ -63,5 +63,10 @@ namespace Envelope
 
             Console.WriteLine("\n" + new string('-', 50));
         }
+
+        public void ShowInformation(string information)
+        {
+            Console.WriteLine(information);
+        }
     }
 }

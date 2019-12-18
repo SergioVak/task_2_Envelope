@@ -6,6 +6,7 @@ namespace Envelope
     public class EnvelopeApp
     {
         private readonly EnvelopeUI _userInterface;
+        private EnvelopeValidator _validator;
 
         private IEnvelope _firstEnvelope;
         private IEnvelope _secondEnvelope;
@@ -13,6 +14,7 @@ namespace Envelope
         public EnvelopeApp()
         {
             _userInterface = new EnvelopeUI();
+            _validator = new EnvelopeValidator();
         }
 
         public void Start()
@@ -33,7 +35,7 @@ namespace Envelope
                 catch (FormatException ex)
                 {
                     Console.WriteLine(TextMessages.WRONG_PARAMETERS);
-                    Log.Logger.Error($"{ex.Message} SequenceApp.Start");
+                    Log.Logger.Error($"{ex.Message} EnvelopeApp.Start");
                 }
 
                 isActive = _userInterface.RunAgain();
@@ -43,12 +45,29 @@ namespace Envelope
 
         private Envelope GetEnvelope(string infoForUser)
         {
-            string[] split = _userInterface.GetInputForEnvelope(infoForUser).Split(' ');
+            bool isValid = false;
 
-            double height = Convert.ToDouble(split[0]);
-            double width = Convert.ToDouble(split[1]);
+            Envelope envelope = new Envelope();
 
-            return new Envelope(height, width);
+            while (!isValid)
+            {
+                string[] split = _userInterface.GetInputForEnvelope(infoForUser).Split(' ');
+
+                double height = Convert.ToDouble(split[0]);
+                double width = Convert.ToDouble(split[1]);
+
+                envelope = new Envelope(height, width);
+
+                isValid = _validator.Validate(envelope).IsValid;
+
+                if (!isValid)
+                {
+                    _userInterface.ShowInformation(TextMessages.WRONG_PARAMETERS);
+                    Log.Logger.Error($"{TextMessages.WRONG_PARAMETERS} EnvelopeApp.GetEnvelope");
+                }
+            }
+
+            return envelope;
         }
 
         private string GetResultOfContains(IEnvelope first, IEnvelope second)

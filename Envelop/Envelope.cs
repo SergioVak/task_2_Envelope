@@ -19,6 +19,12 @@
             }    
         }
 
+        public Envelope()
+        {
+            Height = 0;
+            Width = 0;
+        }
+
         public bool CanContains(IEnvelope secondEnvelope)
         {
             bool result;
