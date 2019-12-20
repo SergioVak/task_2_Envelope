@@ -6,29 +6,28 @@ namespace Envelope
     public class EnvelopeApp
     {
         private readonly EnvelopeUI _userInterface;
-        private EnvelopeValidator _validator;
-
-        private IEnvelope _firstEnvelope;
-        private IEnvelope _secondEnvelope;
 
         public EnvelopeApp()
         {
             _userInterface = new EnvelopeUI();
-            _validator = new EnvelopeValidator();
         }
 
         public void Start()
         {
-            bool isActive = true;
-
             do
             {
                 try
                 {
-                    _firstEnvelope = GetEnvelope(TextMessages.INPUT_PARAMETERS_FOR_FIRST_ENVELOPE);
-                    _secondEnvelope = GetEnvelope(TextMessages.INPUT_PARAMETERS_FOR_SECOND_ENVELOPE);
+                    string[] inputFirst = _userInterface.GetInputForEnvelope(TextMessages.INPUT_PARAMETERS_FOR_FIRST_ENVELOPE).Split(' ');
+                    string[] inputSecond = _userInterface.GetInputForEnvelope(TextMessages.INPUT_PARAMETERS_FOR_SECOND_ENVELOPE).Split(' ');
 
-                    string result = GetResultOfContains(_firstEnvelope, _secondEnvelope);
+                    double[] parametersForFirst = ConvertToDoubleInput(inputFirst);
+                    double[] parametersForSecond = ConvertToDoubleInput(inputSecond);
+
+                    Envelope firstEnvelope = GetEnvelope(parametersForFirst[0], parametersForFirst[1]);
+                    Envelope secondEnvelope = GetEnvelope(parametersForSecond[0], parametersForSecond[1]);
+
+                    ContainmentResult result = GetResultOfContains(firstEnvelope, secondEnvelope);
 
                     _userInterface.ShowResult(result);
                 }
@@ -37,54 +36,64 @@ namespace Envelope
                     Console.WriteLine(TextMessages.WRONG_PARAMETERS);
                     Log.Logger.Error($"{ex.Message} EnvelopeApp.Start");
                 }
-
-                isActive = _userInterface.RunAgain();
-            }
-            while (isActive);
-        }
-
-        private Envelope GetEnvelope(string infoForUser)
-        {
-            bool isValid = false;
-
-            Envelope envelope = new Envelope();
-
-            while (!isValid)
-            {
-                string[] split = _userInterface.GetInputForEnvelope(infoForUser).Split(' ');
-
-                double height = Convert.ToDouble(split[0]);
-                double width = Convert.ToDouble(split[1]);
-
-                envelope = new Envelope(height, width);
-
-                isValid = _validator.Validate(envelope).IsValid;
-
-                if (!isValid)
+                catch (ArgumentException ex)
                 {
-                    _userInterface.ShowInformation(TextMessages.WRONG_PARAMETERS);
-                    Log.Logger.Error($"{TextMessages.WRONG_PARAMETERS} EnvelopeApp.GetEnvelope");
+                    Console.WriteLine(TextMessages.WRONG_PARAMETERS);
+                    Log.Logger.Error($"{ex.Message} EnvelopeApp.Start");
                 }
             }
-
-            return envelope;
+            while (_userInterface.IsRunAgain());
         }
 
-        private string GetResultOfContains(IEnvelope first, IEnvelope second)
+        private double[] ConvertToDoubleInput(string[] split)
         {
-            string result = string.Empty;
-
-            if (first.CanContains(second))
+            if(split.Length != 2)
             {
-                result = TextMessages.POSITIVE_RESULT_FOR_FIRST_ENVELOPE;
+                throw new ArgumentException("Invalid arguments for envelope");
             }
-            else if (second.CanContains(first))
+        
+            double[] result = new double[2];
+
+            result[0] = Convert.ToDouble(split[0]);
+            result[1] = Convert.ToDouble(split[1]);
+
+            return result;
+        }
+
+        private Envelope GetEnvelope(double height, double width)
+        {
+            EnvelopeValidator validator = new EnvelopeValidator();
+
+            Envelope envelope = new Envelope(height, width);
+
+            if (validator.Validate(envelope).IsValid)
             {
-                result = TextMessages.POSITIVE_RESULT_FOR_SECOND_ENVELOPE;
+                return envelope;
+            }
+
+            throw new ArgumentException("Invalid arguments for envelope");
+        }
+
+        private ContainmentResult GetResultOfContains(Envelope first, Envelope second)
+        {
+            if(first == null || second == null)
+            {
+                throw new ArgumentNullException();
+            }
+
+            ContainmentResult result;
+
+            if (first.IsContains(second))
+            {
+                result = ContainmentResult.PositiveFirst;
+            }
+            else if (second.IsContains(first))
+            {
+                result = ContainmentResult.PositiveSecond;
             }
             else
             {
-                result = TextMessages.NEGATIVE_RESULT_FOR_BOTH_ENVELOPES;
+                result = ContainmentResult.NegativeBoth;
             }
 
             return result;

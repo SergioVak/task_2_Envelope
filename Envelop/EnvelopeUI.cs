@@ -12,7 +12,7 @@ namespace Envelope
             return Console.ReadLine();
         }
 
-        public bool RunAgain()
+        public bool IsRunAgain()
         {
             bool reAsk = false;
             bool result = false;
@@ -55,11 +55,33 @@ namespace Envelope
             return result;
         }
 
-        public void ShowResult(string result)
+        public void ShowResult(ContainmentResult result)
         {
             Console.WriteLine();
 
-            Console.WriteLine(result);
+            switch(result)
+            {
+                case ContainmentResult.PositiveFirst:
+
+                    Console.WriteLine(TextMessages.POSITIVE_RESULT_FOR_FIRST_ENVELOPE);
+                    break;
+
+                case ContainmentResult.PositiveSecond:
+
+                    Console.WriteLine(TextMessages.POSITIVE_RESULT_FOR_SECOND_ENVELOPE);
+                    break;
+
+                case ContainmentResult.NegativeBoth:
+
+                    Console.WriteLine(TextMessages.NEGATIVE_RESULT_FOR_BOTH_ENVELOPES);
+                    break;
+
+                default:
+
+                    //TODO log
+                    break;
+
+            }
 
             Console.WriteLine("\n" + new string('-', 50));
         }

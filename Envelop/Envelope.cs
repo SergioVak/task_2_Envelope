@@ -1,44 +1,28 @@
-﻿namespace Envelope
+﻿using System;
+
+namespace Envelope
 {
-    public class Envelope : IEnvelope
+    public class Envelope : IEnvelope , IContainer<Envelope>
     {
         public double Height { get; }
         public double Width { get; }
 
         public Envelope(double height, double width)
         {
-            if (height >= width)
+            if(height < 0 && width < 0)
             {
-                Height = height;
-                Width = width;
+                throw new ArgumentException();
             }
-            else
-            {
-                Height = width;
-                Width = height;
-            }    
+
+            Height = height;
+            Width = width;
         }
 
-        public Envelope()
+        public bool IsContains(Envelope secondEnvelope)
         {
-            Height = 0;
-            Width = 0;
+            return (Height > secondEnvelope.Height) && (Width > secondEnvelope.Width);
         }
 
-        public bool CanContains(IEnvelope secondEnvelope)
-        {
-            bool result;
 
-            if ((Height > secondEnvelope.Height) && (Width > secondEnvelope.Width))
-            {
-                result = true;
-            }
-            else
-            {
-                result = false;
-            }
-
-            return result;
-        }
     }
 }
