@@ -5,6 +5,8 @@ namespace Envelope
 {
     public class EnvelopeApp
     {
+        private const int COUNT_PARAMETERS = 2;
+
         private readonly EnvelopeUI _userInterface;
 
         public EnvelopeApp()
@@ -18,8 +20,11 @@ namespace Envelope
             {
                 try
                 {
-                    string[] inputFirst = _userInterface.GetInputForEnvelope(TextMessages.INPUT_PARAMETERS_FOR_FIRST_ENVELOPE).Split(' ');
-                    string[] inputSecond = _userInterface.GetInputForEnvelope(TextMessages.INPUT_PARAMETERS_FOR_SECOND_ENVELOPE).Split(' ');
+                    string[] inputFirst = _userInterface
+                        .GetInputForEnvelope(TextMessages.INPUT_PARAMETERS_FOR_FIRST_ENVELOPE).Split(' ');
+
+                    string[] inputSecond = _userInterface
+                        .GetInputForEnvelope(TextMessages.INPUT_PARAMETERS_FOR_SECOND_ENVELOPE).Split(' ');
 
                     double[] parametersForFirst = ConvertToDoubleInput(inputFirst);
                     double[] parametersForSecond = ConvertToDoubleInput(inputSecond);
@@ -47,7 +52,7 @@ namespace Envelope
 
         private double[] ConvertToDoubleInput(string[] split)
         {
-            if(split.Length != 2)
+            if(split.Length != COUNT_PARAMETERS)
             {
                 throw new ArgumentException("Invalid arguments for envelope");
             }
@@ -76,11 +81,6 @@ namespace Envelope
 
         private ContainmentResult GetResultOfContains(Envelope first, Envelope second)
         {
-            if(first == null || second == null)
-            {
-                throw new ArgumentNullException();
-            }
-
             ContainmentResult result;
 
             if (first.IsContains(second))
