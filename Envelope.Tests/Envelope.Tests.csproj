@@ -68,7 +68,6 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="EnvelopeTests.cs" />
     <Compile Include="EnvelopeValidatorTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

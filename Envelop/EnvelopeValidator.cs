@@ -6,9 +6,9 @@ namespace Envelope
     {
         public EnvelopeValidator()
         {
-            RuleFor(envelope => envelope.Height).LessThan(double.MaxValue).GreaterThan(0);
+            RuleFor(envelope => envelope.Height).LessThan(envelope => double.MaxValue).GreaterThan(envelope => 0);
 
-            RuleFor(envelope => envelope.Width).LessThan(double.MaxValue).GreaterThan(0);
+            RuleFor(envelope => envelope.Width).LessThan(envelope => double.MaxValue).GreaterThan(envelope => 0);
         }
     }
 }
