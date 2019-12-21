@@ -9,7 +9,7 @@ namespace Envelope
 
         public Envelope(double height, double width)
         {
-            if(height < 0 && width < 0)
+            if(height <= 0 || width <= 0)
             {
                 throw new ArgumentException();
             }
@@ -22,7 +22,5 @@ namespace Envelope
         {
             return (Height > secondEnvelope.Height) && (Width > secondEnvelope.Width);
         }
-
-
     }
 }
