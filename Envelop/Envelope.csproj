@@ -80,7 +80,7 @@
   <ItemGroup>
     <Compile Include="ContainmentResult.cs" />
     <Compile Include="Envelope.cs" />
-    <Compile Include="EnvelopeApp.cs" />
+    <Compile Include="EnvelopeApplication.cs" />
     <Compile Include="EnvelopeUI.cs" />
     <Compile Include="EnvelopeValidator.cs" />
     <Compile Include="IContainer.cs" />

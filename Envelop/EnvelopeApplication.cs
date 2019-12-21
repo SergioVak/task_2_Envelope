@@ -36,12 +36,12 @@ namespace Envelope
 
                     _userInterface.ShowResult(result);
                 }
-                catch (FormatException ex)
+                catch (ArgumentException ex)
                 {
                     Console.WriteLine(TextMessages.WRONG_PARAMETERS);
                     Log.Logger.Error($"{ex.Message} EnvelopeApp.Start");
                 }
-                catch (ArgumentException ex)
+                catch (FormatException ex)
                 {
                     Console.WriteLine(TextMessages.WRONG_PARAMETERS);
                     Log.Logger.Error($"{ex.Message} EnvelopeApp.Start");

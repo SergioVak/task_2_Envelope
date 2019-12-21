@@ -78,7 +78,7 @@ namespace Envelope
 
                 default:
 
-                    //TODO log
+                    Log.Logger.Information($"UI default. ShowResult {result}");
                     break;
 
             }
