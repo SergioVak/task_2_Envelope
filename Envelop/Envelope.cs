@@ -2,7 +2,7 @@
 
 namespace Envelope
 {
-    public class Envelope : IEnvelope , IContainer<Envelope>
+    public class Envelope : IEnvelope, IEnvelopeComparable
     {
         public double Height { get; }
         public double Width { get; }
@@ -18,9 +18,9 @@ namespace Envelope
             Width = width;
         }
 
-        public bool IsContains(Envelope secondEnvelope)
+        public bool IsContains(IEnvelope secondEnvelope)
         {
-            return (Height > secondEnvelope.Height) && (Width > secondEnvelope.Width);
+            return (Height > secondEnvelope.Height)&& (Width > secondEnvelope.Width);
         }
 
 

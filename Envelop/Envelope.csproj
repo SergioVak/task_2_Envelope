@@ -83,7 +83,7 @@
     <Compile Include="EnvelopeApplication.cs" />
     <Compile Include="EnvelopeUI.cs" />
     <Compile Include="EnvelopeValidator.cs" />
-    <Compile Include="IContainer.cs" />
+    <Compile Include="IEnvelopeComparable.cs" />
     <Compile Include="IEnvelope.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

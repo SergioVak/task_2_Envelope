@@ -29,12 +29,13 @@ namespace Envelope
                     double[] parametersForFirst = ConvertToDoubleInput(inputFirst);
                     double[] parametersForSecond = ConvertToDoubleInput(inputSecond);
 
-                    Envelope firstEnvelope = GetEnvelope(parametersForFirst[0], parametersForFirst[1]);
-                    Envelope secondEnvelope = GetEnvelope(parametersForSecond[0], parametersForSecond[1]);
+                    IEnvelopeComparable firstEnvelope = GetEnvelope(parametersForFirst[0], parametersForFirst[1]);
+                    IEnvelopeComparable secondEnvelope = GetEnvelope(parametersForSecond[0], parametersForSecond[1]);
+
 
                     ContainmentResult result = GetResultOfContains(firstEnvelope, secondEnvelope);
 
-                    _userInterface.ShowResult(result);
+                    _userInterface.ShowResult(firstEnvelope, secondEnvelope, result);
                 }
                 catch (ArgumentException ex)
                 {
@@ -79,11 +80,12 @@ namespace Envelope
             throw new ArgumentException("Invalid arguments for envelope");
         }
 
-        private ContainmentResult GetResultOfContains(Envelope first, Envelope second)
+        private ContainmentResult GetResultOfContains
+            (IEnvelopeComparable first, IEnvelopeComparable second)
         {
             ContainmentResult result;
 
-            if (first.IsContains(second))
+            if (first.IsContains(second)) 
             {
                 result = ContainmentResult.PositiveFirst;
             }

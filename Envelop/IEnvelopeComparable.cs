@@ -6,8 +6,8 @@ using System.Threading.Tasks;
 
 namespace Envelope
 {
-    public interface IContainer<T>
+    public interface IEnvelopeComparable : IEnvelope
     {
-        bool IsContains(T second);
+        bool IsContains(IEnvelope second);
     }
 }

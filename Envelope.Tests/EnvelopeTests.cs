@@ -7,8 +7,8 @@ namespace Envelope.Tests
     {
         [Theory]
         [InlineData(100, 90, 20, 30)]
-        [InlineData(30, 30, 40, 40)]
-        [InlineData(10, 9, 12, 10)]
+        [InlineData(60, 50, 40, 40)]
+        [InlineData(11, 9, 10, 8)]
         public void IsContainsTestPredictTrue
             (double firstHeight, double firstWidth, double secondHeight, double secondWidth)
         {
@@ -25,7 +25,7 @@ namespace Envelope.Tests
         [Theory]
         [InlineData(20, 10, 990, 30)]
         [InlineData(1, 1, 2, 5)]
-        [InlineData(10, 9, 8, 8)]
+        [InlineData(1, 9, 8, 8)]
         public void IsContainsTestPredictFalse
             (double firstHeight, double firstWidth, double secondHeight, double secondWidth)
         {

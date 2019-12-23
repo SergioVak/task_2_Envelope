@@ -7,7 +7,7 @@ namespace Envelope.Tests
         [Theory]
         [InlineData(21,2)]
         [InlineData(33,123)]
-        [InlineData(-1, 10)]
+        [InlineData(1, 10)]
         public void ValidateHeightAndWidthResultTrue(double height, double width)
         {
             EnvelopeValidator validator = new EnvelopeValidator();
@@ -22,7 +22,7 @@ namespace Envelope.Tests
         [Theory]
         [InlineData(0, 21)]
         [InlineData(44, -9)]
-        [InlineData(1, 10)]
+        [InlineData(-1, 10)]
         public void ValidateHeightAndWidthResultFalse(double height, double width)
         {
             EnvelopeValidator validator = new EnvelopeValidator();

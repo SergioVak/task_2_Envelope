@@ -12,13 +12,14 @@
 
         public const string RUN_AGAIN = "If you wonna to run again press yes/y.Else no/n";
 
-        public const string POSITIVE_RESULT_FOR_FIRST_ENVELOPE = "First envelope can cointains second one";
-        public const string POSITIVE_RESULT_FOR_SECOND_ENVELOPE = "Second envelope can cointains first one";
-
         public const string NEGATIVE_RESULT_FOR_BOTH_ENVELOPES = "No one of envelopes can not contains another one";
+        public const string POSITIVE_RESULT = "can cointains ";
 
         public const string WRONG_PARAMETERS = "Wrong parameters!";
         public const string WRONG_INPUT = "Wrong input!";
+
+        public const string FIRST = "First";
+        public const string SECOND = "Second";
 
     }
 }

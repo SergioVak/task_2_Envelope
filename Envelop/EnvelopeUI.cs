@@ -55,7 +55,7 @@ namespace Envelope
             return result;
         }
 
-        public void ShowResult(ContainmentResult result)
+        public void ShowResult(IEnvelope first, IEnvelope second, ContainmentResult result)
         {
             Console.WriteLine();
 
@@ -63,12 +63,18 @@ namespace Envelope
             {
                 case ContainmentResult.PositiveFirst:
 
-                    Console.WriteLine(TextMessages.POSITIVE_RESULT_FOR_FIRST_ENVELOPE);
+                    ShowEnvelope(first, TextMessages.FIRST);
+                    Console.WriteLine(TextMessages.POSITIVE_RESULT);
+                    ShowEnvelope(second, TextMessages.SECOND);
+
                     break;
 
                 case ContainmentResult.PositiveSecond:
 
-                    Console.WriteLine(TextMessages.POSITIVE_RESULT_FOR_SECOND_ENVELOPE);
+                    ShowEnvelope(second, TextMessages.SECOND);
+                    Console.Write(TextMessages.POSITIVE_RESULT);
+                    ShowEnvelope(first, TextMessages.FIRST);
+
                     break;
 
                 case ContainmentResult.NegativeBoth:
@@ -89,6 +95,11 @@ namespace Envelope
         public void ShowInformation(string information)
         {
             Console.WriteLine(information);
+        }
+
+        private void ShowEnvelope(IEnvelope envelope, string numberOfEnvelope)
+        {
+            Console.Write($"{numberOfEnvelope} envelope ({envelope.Height} : { envelope.Width}) ");
         }
     }
 }
