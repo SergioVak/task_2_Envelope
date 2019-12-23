@@ -14,26 +14,54 @@ namespace Envelope
             _userInterface = new EnvelopeUI();
         }
 
-        public void Start()
+        public void Start(string[] args)
         {
             do
             {
+                IEnvelopeComparable firstEnvelope;
+                IEnvelopeComparable secondEnvelope;
+
+                ContainmentResult result;
+
                 try
                 {
-                    string[] inputFirst = _userInterface
+                    if(args.Length != 0)
+                    {
+                        if(args.Length != 4)
+                        {
+                            throw new ArgumentException();
+                        }
+                        else
+                        {
+                            firstEnvelope = GetEnvelope(Convert.ToDouble(args[0])
+                                , Convert.ToDouble(args[1]));
+
+                            secondEnvelope = GetEnvelope(Convert.ToDouble(args[2])
+                                , Convert.ToDouble(args[3]));
+
+                            //result = GetResultOfContains(firstEnvelope, secondEnvelope);
+
+                            //_userInterface.ShowResult(firstEnvelope, secondEnvelope, result);
+
+                            //return;
+                        }
+                    }
+                    else
+                    {
+                        string[] inputFirst = _userInterface
                         .GetInputForEnvelope(TextMessages.INPUT_PARAMETERS_FOR_FIRST_ENVELOPE).Split(' ');
 
-                    string[] inputSecond = _userInterface
-                        .GetInputForEnvelope(TextMessages.INPUT_PARAMETERS_FOR_SECOND_ENVELOPE).Split(' ');
+                        string[] inputSecond = _userInterface
+                            .GetInputForEnvelope(TextMessages.INPUT_PARAMETERS_FOR_SECOND_ENVELOPE).Split(' ');
 
-                    double[] parametersForFirst = ConvertToDoubleInput(inputFirst);
-                    double[] parametersForSecond = ConvertToDoubleInput(inputSecond);
+                        double[] parametersForFirst = ConvertToDoubleInput(inputFirst);
+                        double[] parametersForSecond = ConvertToDoubleInput(inputSecond);
 
-                    IEnvelopeComparable firstEnvelope = GetEnvelope(parametersForFirst[0], parametersForFirst[1]);
-                    IEnvelopeComparable secondEnvelope = GetEnvelope(parametersForSecond[0], parametersForSecond[1]);
+                        firstEnvelope = GetEnvelope(parametersForFirst[0], parametersForFirst[1]);
+                        secondEnvelope = GetEnvelope(parametersForSecond[0], parametersForSecond[1]);
+                    }
 
-
-                    ContainmentResult result = GetResultOfContains(firstEnvelope, secondEnvelope);
+                    result = GetResultOfContains(firstEnvelope, secondEnvelope);
 
                     _userInterface.ShowResult(firstEnvelope, secondEnvelope, result);
                 }
@@ -47,6 +75,8 @@ namespace Envelope
                     Console.WriteLine(TextMessages.WRONG_PARAMETERS);
                     Log.Logger.Error($"{ex.Message} EnvelopeApp.Start");
                 }
+
+                Array.Clear(args, 0, args.Length);
             }
             while (_userInterface.IsRunAgain());
         }

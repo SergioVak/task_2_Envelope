@@ -14,7 +14,7 @@ namespace Envelope
 
             try
             {
-                _app.Start();
+                _app.Start(args);
             }
             catch (Exception ex)
             {

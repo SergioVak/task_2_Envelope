@@ -89,7 +89,7 @@ namespace Envelope
 
             }
 
-            Console.WriteLine("\n" + new string('-', 50));
+            Console.WriteLine("\n" + new string('-', 80));
         }
 
         public void ShowInformation(string information)
