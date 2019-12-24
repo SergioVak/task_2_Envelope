@@ -6,6 +6,7 @@ namespace Envelope
     public class EnvelopeApp
     {
         private const int COUNT_PARAMETERS = 2;
+        private const int POSITIVE_COUNT_FOR_ARGS = 4;
 
         private readonly EnvelopeUI _userInterface;
 
@@ -27,7 +28,7 @@ namespace Envelope
                 {
                     if(args.Length != 0)
                     {
-                        if(args.Length != 4)
+                        if(args.Length != POSITIVE_COUNT_FOR_ARGS)
                         {
                             throw new ArgumentException();
                         }
@@ -38,12 +39,6 @@ namespace Envelope
 
                             secondEnvelope = GetEnvelope(Convert.ToDouble(args[2])
                                 , Convert.ToDouble(args[3]));
-
-                            //result = GetResultOfContains(firstEnvelope, secondEnvelope);
-
-                            //_userInterface.ShowResult(firstEnvelope, secondEnvelope, result);
-
-                            //return;
                         }
                     }
                     else
